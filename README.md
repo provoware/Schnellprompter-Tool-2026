@@ -1,0 +1,1 @@
+# Schnellprompter-Tool-2026
