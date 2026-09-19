@@ -6,6 +6,7 @@ const requiredFiles = [
   "js/app.js",
   "js/config.js",
   "js/logger.js",
+  "js/quick-notes.js",
   "manifest.webmanifest",
 ];
 
@@ -21,6 +22,9 @@ const assertions = [
   [contents["index.html"].includes('type="module"'), "ES-Modul-Einstieg fehlt"],
   [contents["css/styles.css"].includes("prefers-reduced-motion"), "Bewegungsreduktion fehlt"],
   [!contents["js/app.js"].includes("console."), "Direkter Konsolenzugriff in app.js"],
+  [contents["index.html"].includes('id="quick-note-form"'), "Schnellspeicherung fehlt"],
+  [contents["js/quick-notes.js"].includes("createWritable({ keepExistingData: true })"), "Anhängen an bestehende Datei fehlt"],
+  [contents["js/quick-notes.js"].includes("new Date().toISOString()"), "Zeitstempel für Schnellspeicherung fehlt"],
 ];
 
 for (const [condition, message] of assertions) {

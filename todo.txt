@@ -1,4 +1,5 @@
 [HOCH] Produkt – Kernablauf für Prompt-Erstellung ist noch nicht fachlich spezifiziert – Interaktionen bleiben bewusst deaktiviert – Anforderungen und Akzeptanzkriterien mit Product Owner festlegen
-[MITTEL] Speicherung – Persistenz- und Datenschutzanforderungen sind offen – Nutzerdaten können noch nicht gespeichert werden – Datenmodell und lokale oder serverseitige Ablage entscheiden
+[MITTEL] Speicherung – Dauerhafte Prompt-Persistenz und Datenschutzanforderungen sind offen – Nur Entwicklernotizen können lokal gespeichert werden – Datenmodell und Ablage für Prompts entscheiden
+[MITTEL] Browser – Schreibzugriff auf Projektordner benötigt die File System Access API – Firefox und Safari können die Schnellspeicherung nicht nutzen – Bei festgelegter Browser-Matrix einen passenden Export-Fallback bewerten
 [MITTEL] Qualität – Browser-Matrix und automatisierte UI-Prüfungen fehlen – visuelle Regressionen werden nur manuell erkannt – Zielbrowser festlegen und danach passenden End-to-End-Check ergänzen
 [NIEDRIG] Installation – Web-App-Icons fehlen im Manifest – installierte Darstellung nutzt kein eigenes Markenzeichen – freigegebene Markenassets bereitstellen
