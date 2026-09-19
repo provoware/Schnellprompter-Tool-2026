@@ -1,5 +1,6 @@
 import { config } from "./config.js";
 import { createLogger } from "./logger.js";
+import { initArbeitsablaeufe } from "./arbeitsablaeufe.js";
 
 const logger = createLogger({
   level: config.debug ? "debug" : "warn",
@@ -8,6 +9,7 @@ const logger = createLogger({
 
 function start() {
   document.documentElement.dataset.appReady = "true";
+  initArbeitsablaeufe();
   logger.debug("Anwendung initialisiert", { environment: config.environment });
 }
 

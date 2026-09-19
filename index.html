@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#111827">
-    <meta name="description" content="Schnellprompter – übersichtlicher Arbeitsbereich für Prompts.">
+    <meta name="description" content="Schnellprompter – übersichtlicher Arbeitsbereich für wiederverwendbare Texte.">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'">
     <title>Schnellprompter</title>
     <link rel="manifest" href="manifest.webmanifest">
@@ -15,7 +15,7 @@
     <header class="topbar">
       <a class="brand" href="./" aria-label="Schnellprompter Startseite">
         <span class="brand__mark" aria-hidden="true">S</span>
-        <span><strong>Schnellprompter</strong><small>Prompt-Arbeitsbereich</small></span>
+        <span><strong>Schnellprompter</strong><small>Text-Arbeitsbereich</small></span>
       </a>
       <span class="status"><span class="status__dot" aria-hidden="true"></span>Bereit</span>
     </header>
@@ -24,7 +24,7 @@
       <aside class="sidebar" aria-label="Hauptnavigation">
         <nav>
           <a class="nav-link nav-link--active" href="#arbeitsbereich" aria-current="page">
-            <span aria-hidden="true">⌂</span> Übersicht
+            <span aria-hidden="true">✎</span> Textbausteine
           </a>
         </nav>
         <p class="sidebar__note">Grundsystem<br><span>Version 0.1.0</span></p>
@@ -33,32 +33,108 @@
       <main id="arbeitsbereich" class="main" tabindex="-1">
         <div class="page-heading">
           <div>
-            <p class="eyebrow">Dashboard</p>
-            <h1>Willkommen im Schnellprompter</h1>
-            <p class="subtitle">Das Grundsystem steht bereit. Inhalte werden im nächsten Entwicklungsschritt ergänzt.</p>
+            <p class="eyebrow">Textbibliothek</p>
+            <h1>Bausteine für starke Texte</h1>
+            <p class="subtitle">Fragmente, ganze Vorlagen und wiederkehrende Formulierungen lokal sammeln und ordnen.</p>
           </div>
-          <button class="button" type="button" disabled aria-describedby="button-hint">Neuen Prompt anlegen</button>
+          <div class="page-actions">
+            <button class="button button--help" id="hilfe-oeffnen" type="button">Hilfe in 3 Schritten</button>
+            <button class="button button--secondary" id="import-button" type="button">Sicherung einlesen</button>
+            <button class="button" id="export-button" type="button">Sicherung ausgeben</button>
+            <input class="sr-only" id="import-file" type="file" accept="application/json,.json">
+          </div>
         </div>
-        <span id="button-hint" class="sr-only">Diese Funktion ist in der Grundversion noch nicht verfügbar.</span>
 
         <section class="metrics" aria-label="Übersicht">
-          <article class="metric"><span>Prompts</span><strong>0</strong><small>Noch keine Einträge</small></article>
-          <article class="metric"><span>Vorlagen</span><strong>0</strong><small>Noch keine Vorlagen</small></article>
-          <article class="metric"><span>Letzte Aktivität</span><strong>–</strong><small>Keine Aktivität vorhanden</small></article>
+          <article class="metric metric--violet"><span>Einträge</span><strong id="entry-count">0</strong><small>Gespeicherte Arbeitsabläufe</small></article>
+          <article class="metric metric--cyan"><span>Wörter</span><strong id="word-count">0</strong><small>Gesamter Inhaltsumfang</small></article>
+          <article class="metric metric--amber"><span>Zeichen</span><strong id="character-count">0</strong><small>In allen Inhalten</small></article>
         </section>
 
-        <section class="panel" aria-labelledby="empty-title">
-          <div class="empty-state">
-            <span class="empty-state__icon" aria-hidden="true">✦</span>
-            <h2 id="empty-title">Dein Arbeitsbereich ist leer</h2>
-            <p>Hier erscheinen künftig deine Prompts, Vorlagen und letzten Aktivitäten.</p>
-            <p class="empty-state__hint">Die Oberfläche ist vorbereitet – ohne Beispieldaten oder versteckte Aktionen.</p>
+        <div class="workspace">
+          <section class="composer" aria-labelledby="composer-title">
+            <div class="section-heading">
+              <div><p class="eyebrow">Eingabe</p><h2 id="composer-title">Arbeitsablauf anlegen <button class="hilfe-symbol" type="button" title="Hier geben Sie einen leicht erkennbaren Titel und den Text ein, der später kopiert wird." aria-label="Hilfe zur Eingabe">?</button></h2></div>
+              <button class="text-button" id="reset-button" type="button">Leeren</button>
+            </div>
+            <form id="prompt-form">
+              <input id="entry-id" type="hidden">
+              <label for="entry-type">Art</label>
+              <select id="entry-type" name="type">
+                <option value="fragment">Textabschnitt</option>
+                <option value="template">Vorlage</option>
+                <option value="phrase">Phrase</option>
+              </select>
+              <label for="entry-title">Titel</label>
+              <input id="entry-title" name="title" required maxlength="100" spellcheck="true" placeholder="z. B. Produktbeschreibung">
+              <div class="field-tools">
+                <span id="title-stat">0 Zeichen</span>
+                <button type="button" data-copy="entry-title">Kopieren</button>
+                <button type="button" data-paste="entry-title">Einfügen</button>
+              </div>
+              <label for="entry-content">Text</label>
+              <textarea id="entry-content" name="content" required rows="10" spellcheck="true" placeholder="Textabschnitt oder vollständige Vorlage eingeben …"></textarea>
+              <div class="field-tools">
+                <span id="content-stat">0 Wörter · 0 Zeichen</span>
+                <button type="button" data-copy="entry-content">Kopieren</button>
+                <button type="button" data-paste="entry-content">Einfügen</button>
+              </div>
+              <label class="version-option" id="version-option"><input id="new-version" type="checkbox" checked> Änderung als neue Version behalten</label>
+              <button class="button button--wide" id="save-button" type="submit">Arbeitsablauf speichern</button>
+            </form>
+            <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+            <details class="inline-help"><summary>So funktioniert das Speichern</summary><p>Beim ersten Speichern entsteht Version 1. Beim Bearbeiten bleibt die bisherige Fassung erhalten, wenn „Änderung als neue Version behalten“ ausgewählt ist.</p></details>
+          </section>
+
+          <section class="library" aria-labelledby="library-title">
+            <div class="section-heading library-heading">
+              <div><p class="eyebrow">Schnellzugriff</p><h2 id="library-title">Meine Arbeitsabläufe <button class="hilfe-symbol" type="button" title="Ein Druck auf einen Titel kopiert sofort den Text der ausgewählten Version." aria-label="Hilfe zu den Arbeitsabläufen">?</button></h2></div>
+              <label class="sort-control" for="sort-order">Sortieren
+                <select id="sort-order">
+                  <option value="manual">Manuell</option>
+                  <option value="newest">Neueste zuerst</option>
+                  <option value="title">Titel A–Z</option>
+                  <option value="type">Art</option>
+                </select>
+              </label>
+            </div>
+            <div class="drop-zone" id="drop-zone" tabindex="0">Sicherungsdatei hier ablegen oder Schaltflächen mit der Maus neu ordnen</div>
+            <ol class="entry-list" id="entry-list"></ol>
+            <div class="empty-state" id="empty-state">
+              <span class="empty-state__icon" aria-hidden="true">✦</span>
+              <h3>Noch keine Arbeitsabläufe</h3>
+              <p>Nach dem Speichern erscheint der Titel hier als Schaltfläche. Ein Druck darauf kopiert den Text.</p>
+            </div>
+          </section>
+        </div>
+
+        <details class="settings" id="settings">
+          <summary>Einstellungen für Platzhalter und alternative Namen</summary>
+          <div class="settings__content">
+            <div>
+              <h2>Platzhalter anlegen <button class="hilfe-symbol" type="button" title="Platzhalter markieren Stellen, die Sie später passend ersetzen, zum Beispiel {{Zielgruppe}}." aria-label="Hilfe zu Platzhaltern">?</button></h2>
+              <p>Verwenden Sie im Text doppelte geschweifte Klammern, zum Beispiel <code>{{Zielgruppe}}</code>.</p>
+            </div>
+            <form id="placeholder-form" class="placeholder-form">
+              <label for="placeholder-name">Bezeichnung</label>
+              <input id="placeholder-name" required maxlength="60" spellcheck="true" placeholder="zum Beispiel Zielgruppe">
+              <label for="placeholder-aliases">Alternative Namen, durch Kommas getrennt</label>
+              <input id="placeholder-aliases" spellcheck="true" placeholder="zum Beispiel Leserkreis, Empfänger">
+              <button class="button button--contrast" type="submit">Platzhalter hinzufügen</button>
+            </form>
+            <ul id="placeholder-list" class="placeholder-list"></ul>
           </div>
-        </section>
+        </details>
+
+        <dialog id="hilfe-dialog" aria-labelledby="hilfe-title">
+          <form method="dialog"><button class="dialog-close" aria-label="Hilfe schließen">×</button></form>
+          <p class="eyebrow">Schnellstart</p><h2 id="hilfe-title">In drei Schritten zum fertigen Text</h2>
+          <ol class="help-steps" id="help-steps"></ol>
+        </dialog>
       </main>
     </div>
 
-    <noscript><p class="noscript">JavaScript ist deaktiviert. Das leere Dashboard bleibt lesbar, interaktive Funktionen benötigen JavaScript.</p></noscript>
+    <noscript><p class="noscript">JavaScript ist deaktiviert. Der Arbeitsbereich bleibt lesbar, die Bedienfunktionen benötigen JavaScript.</p></noscript>
     <script type="module" src="js/app.js"></script>
   </body>
 </html>

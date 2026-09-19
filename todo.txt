@@ -1,4 +1,4 @@
-[HOCH] Produkt – Kernablauf für Prompt-Erstellung ist noch nicht fachlich spezifiziert – Interaktionen bleiben bewusst deaktiviert – Anforderungen und Akzeptanzkriterien mit Product Owner festlegen
-[MITTEL] Speicherung – Persistenz- und Datenschutzanforderungen sind offen – Nutzerdaten können noch nicht gespeichert werden – Datenmodell und lokale oder serverseitige Ablage entscheiden
+[HOCH] Unteragenten – Sichere Modell- und Serverschnittstelle fehlt – Rollen können nicht verantwortbar automatisch arbeiten – Datenschutz, Rechte, Kostenlimit und menschliche Freigabe vor einem kleinen Prüfer-Versuch festlegen
 [MITTEL] Qualität – Browser-Matrix und automatisierte UI-Prüfungen fehlen – visuelle Regressionen werden nur manuell erkannt – Zielbrowser festlegen und danach passenden End-to-End-Check ergänzen
+[MITTEL] Lieferarchiv – Zähler für abgeschlossene Iterationen fehlt – fünfte Iteration ist nicht automatisch nachweisbar – Iterationszählung verbindlich definieren und bei Iteration fünf Archiv mit Statusdatei erzeugen
 [NIEDRIG] Installation – Web-App-Icons fehlen im Manifest – installierte Darstellung nutzt kein eigenes Markenzeichen – freigegebene Markenassets bereitstellen

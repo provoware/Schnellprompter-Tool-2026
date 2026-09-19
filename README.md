@@ -1,8 +1,9 @@
 # Schnellprompter Tool 2026
 
-Schlankes Grundsystem für einen übersichtlichen Prompt-Arbeitsbereich. Die
-aktuelle Version liefert bewusst ein geprüftes Leer-Dashboard, auf dem die
-fachlichen Funktionen schrittweise aufgebaut werden können.
+Browsernative Sammlung für wiederverwendbare Textabschnitte, Vorlagen und
+Formulierungen. Ein Druck auf den Titel eines Arbeitsablaufs kopiert dessen Text.
+Mehrere Fassungen, Dublettenprüfung, Platzhalter, Sicherungsdateien und gestufte
+Hilfen unterstützen dabei auch Menschen ohne technische Vorkenntnisse.
 
 ## Start
 
@@ -25,6 +26,8 @@ npm test
 - Zentrales strukturiertes Logging mit Maskierung sensitiver Felder
 - Debugmodus ausschließlich nach expliziter Aktivierung über `?debug=1`
 - Kleine Module und reproduzierbare, abhängigkeitfreie Checks
+- Lokale Speicherung im verwendeten Browser; keine Übertragung an einen Dienst
+- Maschinenlesbare Prüffälle in [`qualitaetsregeln.json`](qualitaetsregeln.json)
 
 Architektur, Entwicklungsworkflow, Debugging und Definition of Done stehen in
 [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md). Verbindliche Repository-Regeln sind

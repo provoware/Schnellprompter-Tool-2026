@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "bereich": "Textbausteine und Arbeitsabläufe",
+  "zweck": "Wiederholbare Prüfregeln für zentrale Bedienwege und bekannte Fehlerklassen",
+  "faelle": [
+    {
+      "id": "TB-001",
+      "titel": "Titel-Schaltfläche kopiert den Inhalt",
+      "ausloeser": "Ein gespeicherter Textbaustein wird in der Arbeitsablauf-Übersicht gewählt.",
+      "schritte": [
+        "Titel Testablauf und Inhalt Beispieltext speichern.",
+        "Die Schaltfläche Testablauf wählen.",
+        "Den Inhalt der Zwischenablage auslesen."
+      ],
+      "erwartung": "Die Zwischenablage enthält genau Beispieltext und die Oberfläche bestätigt das Kopieren.",
+      "abgedeckteFehlerklassen": ["falscher Schaltflächentext", "falscher Kopierinhalt", "fehlende Rückmeldung"]
+    },
+    {
+      "id": "TB-002",
+      "titel": "Doppelter Inhalt wird erkannt",
+      "ausloeser": "Titel oder Inhalt eines neuen Textbausteins stimmt mit einem vorhandenen Eintrag überein.",
+      "schritte": [
+        "Einen Textbaustein speichern.",
+        "Denselben Titel oder denselben Inhalt erneut speichern."
+      ],
+      "erwartung": "Das Werkzeug weist verständlich auf das Duplikat hin, blockiert die Doppelanlage und lässt den vorhandenen Eintrag unverändert.",
+      "abgedeckteFehlerklassen": ["unbemerkte Doppelanlage", "abweichende Leerzeichen", "abweichende Großschreibung"]
+    },
+    {
+      "id": "TB-003",
+      "titel": "Versionen bleiben getrennt abrufbar",
+      "ausloeser": "Für einen vorhandenen Arbeitsablauf wird eine neue Version angelegt.",
+      "schritte": [
+        "Einen Arbeitsablauf mit Version eins speichern.",
+        "Eine neue Version mit geändertem Inhalt anlegen.",
+        "Beide Versionen nacheinander öffnen."
+      ],
+      "erwartung": "Beide Inhalte sind unverändert vorhanden, eindeutig nummeriert und dem gleichen Arbeitsablauf zugeordnet.",
+      "abgedeckteFehlerklassen": ["überschriebene Vorversion", "falsche Versionsnummer", "verlorene Zuordnung"]
+    },
+    {
+      "id": "TB-004",
+      "titel": "Platzhalter und alternative Namen bleiben nachvollziehbar",
+      "ausloeser": "Ein Platzhalter mit alternativen Namen wird angelegt und verwendet.",
+      "schritte": [
+        "Den Platzhalter Zielgruppe mit dem alternativen Namen Leserkreis anlegen.",
+        "Den Platzhalter über seine Schaltfläche kopieren.",
+        "Einen Text mit {{Zielgruppe}} speichern und kopieren."
+      ],
+      "erwartung": "Bezeichnung und alternativer Name bleiben sichtbar; beim Kopieren des Textes wird auf den noch offenen Platzhalter hingewiesen.",
+      "abgedeckteFehlerklassen": ["verlorener alternativer Name", "falsch kopierter Platzhalter", "fehlender Hinweis"]
+    },
+    {
+      "id": "TB-005",
+      "titel": "Bearbeiten erhält Identität und Statistik",
+      "ausloeser": "Ein gespeicherter Textbaustein wird bearbeitet.",
+      "schritte": [
+        "Einen Textbaustein öffnen.",
+        "Titel und Inhalt ändern und speichern.",
+        "Anzahl, Wortmenge und Zeichenmenge prüfen."
+      ],
+      "erwartung": "Es entsteht kein zusätzlicher Eintrag; sichtbarer Inhalt und Mengenangaben entsprechen der Änderung.",
+      "abgedeckteFehlerklassen": ["Doppelanlage beim Bearbeiten", "veraltete Anzeige", "falsche Mengenangabe"]
+    },
+    {
+      "id": "TB-006",
+      "titel": "Löschen benötigt Bestätigung",
+      "ausloeser": "Löschen wird bei einem gespeicherten Textbaustein gewählt.",
+      "schritte": [
+        "Löschen wählen und abbrechen.",
+        "Löschen erneut wählen und bestätigen."
+      ],
+      "erwartung": "Nach dem Abbruch bleibt der Eintrag erhalten; erst nach Bestätigung wird ausschließlich dieser Eintrag entfernt.",
+      "abgedeckteFehlerklassen": ["Löschen ohne Rückfrage", "Löschen des falschen Eintrags", "Abbruch wird ignoriert"]
+    },
+    {
+      "id": "TB-007",
+      "titel": "Einlesen weist ungültige Daten zurück",
+      "ausloeser": "Eine Datei wird gewählt oder in den Einlesebereich gezogen.",
+      "schritte": [
+        "Eine ungültige Datei einlesen.",
+        "Anschließend eine gültige Sicherungsdatei einlesen."
+      ],
+      "erwartung": "Ungültige Daten verändern den Bestand nicht; gültige Daten werden vollständig übernommen und bestätigt.",
+      "abgedeckteFehlerklassen": ["Datenverlust bei Fehleingabe", "unvollständige Prüfung", "abweichendes Ziehen-und-Ablegen"]
+    },
+    {
+      "id": "TB-008",
+      "titel": "Ausgabe und erneutes Einlesen sind verlustfrei",
+      "ausloeser": "Ein Bestand mit Versionen, Platzhaltern und Aliasen wird ausgegeben.",
+      "schritte": [
+        "Den Bestand als Datei ausgeben.",
+        "Den örtlichen Speicher leeren.",
+        "Die ausgegebene Datei wieder einlesen."
+      ],
+      "erwartung": "Alle Einträge, Reihenfolgen, Versionen, Platzhalter und Aliase stimmen mit dem Ausgangsbestand überein.",
+      "abgedeckteFehlerklassen": ["verlorene Zusatzfelder", "veränderte Reihenfolge", "nicht wieder einlesbare Ausgabe"]
+    },
+    {
+      "id": "TB-009",
+      "titel": "Manuelle Reihenfolge bleibt erhalten",
+      "ausloeser": "Ein Eintrag wird per Ziehen und Ablegen verschoben.",
+      "schritte": [
+        "Drei Einträge speichern.",
+        "Den dritten Eintrag an die erste Stelle ziehen.",
+        "Die Seite neu laden."
+      ],
+      "erwartung": "Die manuelle Sortierung ist aktiv und die neue Reihenfolge bleibt nach dem Neuladen erhalten.",
+      "abgedeckteFehlerklassen": ["verlorene Reihenfolge", "falsches Einfügeziel", "Sortierart bleibt widersprüchlich"]
+    },
+    {
+      "id": "TB-010",
+      "titel": "Nutzertext wird nur als Text dargestellt",
+      "ausloeser": "Titel oder Inhalt enthält Zeichenfolgen, die wie Programm- oder Seitencode aussehen.",
+      "schritte": [
+        "Einen Eintrag mit Seitencode im Titel und Inhalt speichern.",
+        "Übersicht und Bearbeitungsansicht öffnen."
+      ],
+      "erwartung": "Die Zeichenfolge wird sichtbar als Text dargestellt und nicht ausgeführt.",
+      "abgedeckteFehlerklassen": ["eingeschleuster Seitencode", "veränderte Nutzereingabe", "unerwünschte Programmausführung"]
+    }
+  ]
+}
