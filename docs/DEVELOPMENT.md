@@ -26,6 +26,8 @@ js/config.js          Laufzeitkonfiguration ohne Geheimnisse
 js/logger.js          zentrale, strukturierte und bereinigte Logs
 js/app.js             einziger Einstiegspunkt und globale Fehlererfassung
 scripts/              lokale, abhängigkeitfreie Qualitätsprüfungen
+docs/PROJECT_STATUS.md Fortschritt, Iterationen und Dokumentations-Trigger
+docs/MASTER_PROMPT.md  verbindliche, weitergebbare Arbeitsvorlage
 ```
 
 Neue Fachbereiche erhalten nur dann ein eigenes Modul, wenn sie eine klar
@@ -71,3 +73,11 @@ Regeln:
 - Keine Geheimnisse, temporären Dateien oder Abhängigkeiten versehentlich ergänzt
 - Dokumentation nur bei geänderter Außenwirkung aktualisiert
 - Diff frei von Debugresten und unbeabsichtigter Formatierung
+
+## Dokumentationspflege
+
+`docs/PROJECT_STATUS.md` ist der zentrale, kurze Entwicklungsstand. Bei einem
+abgeschlossenen Meilenstein werden dort Hauptliste, Prozessanzeigen und Iteration
+geprüft. README, Entwicklungsleitfaden, TODO-Liste und AGENTS-Regeln werden dagegen
+nur bei der jeweils beschriebenen Außenwirkung geändert. Die vollständige
+Pflege-Matrix steht im [Projektstatus](PROJECT_STATUS.md#pflege-trigger).

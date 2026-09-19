@@ -1,5 +1,7 @@
 # Schnellprompter Tool 2026
 
+> **Status:** 🟢 Grundsystem stabil · Entwicklung **35 %** · Qualität **60 %** · Dokumentation **80 %**
+
 Schlankes Grundsystem für einen übersichtlichen Prompt-Arbeitsbereich. Die
 aktuelle Version liefert bewusst ein geprüftes Leer-Dashboard, auf dem die
 fachlichen Funktionen schrittweise aufgebaut werden können.
@@ -32,7 +34,12 @@ npm test
 - Debugmodus ausschließlich nach expliziter Aktivierung über `?debug=1`
 - Kleine Module und reproduzierbare, abhängigkeitfreie Checks
 
-Architektur, Entwicklungsworkflow, Debugging und Definition of Done stehen in
-[`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md). Verbindliche Repository-Regeln sind
-in [`AGENTS.md`](AGENTS.md) dokumentiert; offene Produktentscheidungen stehen in
-[`todo.txt`](todo.txt).
+## Hauptnavigation
+
+| Bezeichnung | Inhalt |
+|---|---|
+| [Projektstatus](docs/PROJECT_STATUS.md) | Fortschritt, Hauptliste, Iterationen, Pflege-Trigger und Empfehlungen |
+| [Entwicklungsleitfaden](docs/DEVELOPMENT.md) | Architektur, Workflow, Debugging und Definition of Done |
+| [Masterprompt](docs/MASTER_PROMPT.md) | Textbasierter, direkt prüf- und druckbarer Ablauf mit verbindlichem Ausgabeformat |
+| [Arbeitsregeln](AGENTS.md) | Verbindliche Regeln für Änderungen im Repository |
+| [Offene Punkte](todo.txt) | Priorisierte technische und fachliche Folgepunkte |

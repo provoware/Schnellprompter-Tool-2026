@@ -35,14 +35,50 @@
           <div>
             <p class="eyebrow">Dashboard</p>
             <h1>Willkommen im Schnellprompter</h1>
-            <p class="subtitle">Das Grundsystem steht bereit. Inhalte werden im nächsten Entwicklungsschritt ergänzt.</p>
+            <p class="subtitle">Entwicklungsstand, Arbeitsbereiche und nächste Schritte auf einen Blick.</p>
           </div>
           <button id="open-settings" class="button button--secondary" type="button">Einstellungen</button>
         </div>
-        <section class="metrics" aria-label="Übersicht">
-          <article class="metric"><span>Prompts</span><strong>0</strong><small>Noch keine Einträge</small></article>
-          <article class="metric"><span>Vorlagen</span><strong>0</strong><small>Noch keine Vorlagen</small></article>
-          <article class="metric"><span>Letzte Aktivität</span><strong>–</strong><small>Keine Aktivität vorhanden</small></article>
+        <section class="progress-overview" aria-labelledby="progress-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Projektstatus</p>
+              <h2 id="progress-title">Fortschritt</h2>
+            </div>
+            <a class="text-link" href="docs/PROJECT_STATUS.md">Statusdetails öffnen</a>
+          </div>
+          <div class="progress-grid">
+            <article class="progress-card">
+              <div class="progress-card__label"><span>Entwicklung</span><strong>35 %</strong></div>
+              <progress value="35" max="100">35 %</progress>
+              <small>Grundsystem und Schnellspeicherung stehen.</small>
+            </article>
+            <article class="progress-card">
+              <div class="progress-card__label"><span>Qualitätssicherung</span><strong>60 %</strong></div>
+              <progress value="60" max="100">60 %</progress>
+              <small>Projektchecks aktiv, Browserautomatisierung offen.</small>
+            </article>
+            <article class="progress-card">
+              <div class="progress-card__label"><span>Dokumentation</span><strong>80 %</strong></div>
+              <progress value="80" max="100">80 %</progress>
+              <small>Status, Workflow und Masterprompt sind dokumentiert.</small>
+            </article>
+          </div>
+        </section>
+
+        <section class="work-overview" aria-labelledby="work-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Hauptliste</p>
+              <h2 id="work-title">Betroffene Arbeitsbereiche</h2>
+            </div>
+            <span class="status-badge">3 Bereiche</span>
+          </div>
+          <ol class="work-list">
+            <li><span class="work-list__index">01</span><div><strong>Prompt-Arbeitsbereich</strong><small>Status: fachliche Spezifikation ausstehend</small></div><span class="status-badge status-badge--open">Offen</span></li>
+            <li><span class="work-list__index">02</span><div><strong>Entwicklerinfos und Ideen</strong><small>Status: lokale Schnellspeicherung verfügbar</small></div><span class="status-badge status-badge--done">Bereit</span></li>
+            <li><span class="work-list__index">03</span><div><strong>Qualität und Dokumentation</strong><small>Status: Checks und zentrale Projektübersicht aktiv</small></div><span class="status-badge status-badge--active">Aktiv</span></li>
+          </ol>
         </section>
 
         <section class="quick-note" aria-labelledby="quick-note-title">
@@ -69,6 +105,19 @@
             <p>Hier erscheinen künftig deine Prompts, Vorlagen und letzten Aktivitäten.</p>
             <p class="empty-state__hint">Die Oberfläche ist vorbereitet – ohne Beispieldaten oder versteckte Aktionen.</p>
           </div>
+        </section>
+
+        <section class="resources" aria-labelledby="resources-title">
+          <div>
+            <p class="eyebrow">Informationen</p>
+            <h2 id="resources-title">Dokumentation und Links</h2>
+          </div>
+          <ul>
+            <li><a href="README.md">Projektübersicht</a></li>
+            <li><a href="docs/DEVELOPMENT.md">Entwicklungsleitfaden</a></li>
+            <li><a href="docs/MASTER_PROMPT.md">Masterprompt</a></li>
+            <li><a href="todo.txt">Offene Folgepunkte</a></li>
+          </ul>
         </section>
       </main>
     </div>
