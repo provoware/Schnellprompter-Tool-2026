@@ -1,0 +1,10 @@
+{
+  "name": "Schnellprompter",
+  "short_name": "Prompter",
+  "description": "Übersichtlicher Arbeitsbereich für Prompts.",
+  "lang": "de",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f3f6fb",
+  "theme_color": "#111827"
+}

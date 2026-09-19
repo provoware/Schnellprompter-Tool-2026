@@ -1,0 +1,14 @@
+{
+  "name": "schnellprompter-tool-2026",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "python3 -m http.server 4173",
+    "check": "node scripts/check-project.js",
+    "test": "npm run check"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
