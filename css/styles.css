@@ -62,12 +62,33 @@ h1 { margin: 0; font-size: clamp(1.7rem, 3vw, 2.35rem); letter-spacing: -.035em;
 .button:disabled { cursor: not-allowed; opacity: .55; }
 .button--secondary { border: 1px solid var(--primary); background: var(--surface); color: var(--primary-dark); }
 .metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); margin-bottom: 22px; }
-.metric, .panel { border: 1px solid var(--border); border-radius: var(--radius-card); background: var(--surface); box-shadow: var(--shadow); }
+.metric, .panel, .progress-overview, .work-overview, .resources { border: 1px solid var(--border); border-radius: var(--radius-card); background: var(--surface); box-shadow: var(--shadow); }
 .metric { padding: 22px; }
 .metric span, .metric small { display: block; color: var(--muted); }
 .metric span { font-size: .78rem; font-weight: 750; letter-spacing: .04em; text-transform: uppercase; }
 .metric strong { display: block; margin: 10px 0 3px; font-size: 1.8rem; }
 .metric small { font-size: .78rem; }
+.progress-overview, .work-overview, .resources { margin-bottom: 22px; padding: var(--space-lg); }
+.section-heading, .progress-card__label, .work-list li, .resources { display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); }
+.section-heading { margin-bottom: var(--space-md); }
+.section-heading h2, .resources h2 { margin: 0; font-size: 1.15rem; }
+.text-link, .resources a { color: var(--primary-dark); font-weight: 700; text-underline-offset: 3px; }
+.text-link:focus-visible, .resources a:focus-visible { outline: 3px solid var(--focus-color); outline-offset: var(--focus-offset); }
+.progress-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); }
+.progress-card { padding: var(--space-md); border-radius: var(--radius-control); background: var(--surface-muted); }
+.progress-card__label { margin-bottom: 10px; font-size: .88rem; }
+.progress-card progress { width: 100%; height: 9px; accent-color: var(--primary); }
+.progress-card small { display: block; margin-top: 9px; color: var(--muted); line-height: 1.45; }
+.status-badge { padding: 5px 9px; border-radius: 999px; background: var(--surface-muted); color: var(--muted); font-size: .72rem; font-weight: 800; white-space: nowrap; }
+.status-badge--open { background: #fff7ed; color: #9a3412; }
+.status-badge--done { background: #f0fdf4; color: #15803d; }
+.status-badge--active { background: var(--icon-surface); color: var(--primary-dark); }
+.work-list { margin: 0; padding: 0; list-style: none; }
+.work-list li { padding: 14px 0; border-top: 1px solid var(--border); }
+.work-list__index { color: var(--primary); font-size: .78rem; font-weight: 800; }
+.work-list div { flex: 1; }
+.work-list strong, .work-list small { display: block; }
+.work-list small { margin-top: 3px; color: var(--muted); }
 .quick-note { margin-bottom: 22px; padding: var(--space-lg); border: 2px solid var(--primary); border-radius: var(--radius-card); background: var(--surface); box-shadow: var(--shadow); }
 [data-highlight="subtle"] .quick-note { border-width: 1px; border-color: var(--border); }
 .quick-note__heading { display: flex; gap: var(--space-md); align-items: center; justify-content: space-between; }
@@ -93,6 +114,8 @@ h1 { margin: 0; font-size: clamp(1.7rem, 3vw, 2.35rem); letter-spacing: -.035em;
 .empty-state__hint { font-size: .84rem; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .noscript { margin: 0; padding: var(--space-sm); background: var(--notice-surface); text-align: center; }
+.resources { margin-top: 22px; }
+.resources ul { display: flex; flex-wrap: wrap; gap: var(--space-md); margin: 0; padding: 0; list-style: none; }
 
 @media (hover: hover) {
   .brand:hover, .skip-link:hover { background: var(--hover-surface); }
@@ -113,6 +136,9 @@ h1 { margin: 0; font-size: clamp(1.7rem, 3vw, 2.35rem); letter-spacing: -.035em;
   .quick-note__form { grid-template-columns: 1fr; }
   .quick-note .button, .settings-dialog .button { margin-top: 0; }
   .metrics { grid-template-columns: 1fr; }
+  .progress-grid { grid-template-columns: 1fr; }
+  .section-heading, .resources { align-items: flex-start; flex-direction: column; }
+  .work-list li { align-items: flex-start; }
   .panel { min-height: 280px; padding: var(--space-lg); }
 }
 
