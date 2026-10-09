@@ -1,0 +1,26 @@
+name: Projektcheck
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  project-check:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [20, 22]
+    steps:
+      - name: Quellen laden
+        uses: actions/checkout@v4
+      - name: Node.js bereitstellen
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Projekt und JavaScript-Syntax prüfen
+        run: npm test

@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 
 const requiredFiles = [
@@ -18,6 +19,11 @@ const contents = Object.fromEntries(await Promise.all(requiredFiles.map(async (p
   path,
   await readFile(path, "utf8"),
 ])));
+
+// Die bisherigen Textregeln allein entdecken keine JavaScript-Syntaxfehler.
+for (const path of requiredFiles.filter((item) => item.endsWith(".js"))) {
+  execFileSync(process.execPath, ["--check", path], { stdio: "pipe" });
+}
 
 const assertions = [
   [contents["index.html"].startsWith("<!doctype html>"), "HTML-Dokumenttyp fehlt"],
