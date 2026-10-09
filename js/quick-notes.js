@@ -50,9 +50,14 @@ export async function chooseProjectFolder() {
   return window.showDirectoryPicker({ mode: "readwrite", id: "schnellprompter-project" });
 }
 
-export async function appendQuickNote(directoryHandle, rawText) {
+export function normalizeQuickNote(rawText) {
   const text = rawText.trim().replace(/\s+/g, " ");
   if (!text) throw new Error("EMPTY_NOTE");
+  return text;
+}
+
+export async function appendQuickNote(directoryHandle, rawText) {
+  const text = normalizeQuickNote(rawText);
 
   const fileHandle = await directoryHandle.getFileHandle(FILE_NAME, { create: true });
   const file = await fileHandle.getFile();
