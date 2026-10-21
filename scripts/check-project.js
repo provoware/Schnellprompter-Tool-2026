@@ -19,6 +19,16 @@ const contents = Object.fromEntries(await Promise.all(requiredFiles.map(async (p
   await readFile(path, "utf8"),
 ])));
 
+// Verhindert Umleitungen relativer Quellen durch ein unerwartetes <base>-Element.
+const csp = contents["index.html"].match(
+  /<meta\s+http-equiv="Content-Security-Policy"\s+content="([^"]+)"/i,
+)?.[1] ?? "";
+const baseUriRules = csp.split(";")
+  .map((directive) => directive.trim().split(/\s+/))
+  .filter(([name]) => name === "base-uri");
+const baseUriLocked = baseUriRules.length === 1
+  && baseUriRules[0].length === 2 && baseUriRules[0][1] === "'none'";
+
 const assertions = [
   [contents["index.html"].startsWith("<!doctype html>"), "HTML-Dokumenttyp fehlt"],
   [contents["index.html"].includes('lang="de"'), "Dokumentsprache fehlt"],
@@ -34,6 +44,7 @@ const assertions = [
   [contents["README.md"].includes("docs/PROJECT_STATUS.md"), "Projektstatus ist im README nicht verlinkt"],
   [contents["docs/PROJECT_STATUS.md"].includes("## Pflege-Trigger"), "Dokumentations-Trigger fehlen"],
   [contents["docs/MASTER_PROMPT.md"].includes("## 2. Verbindlicher Arbeitsablauf"), "Masterprompt-Ablauf fehlt"],
+  [baseUriLocked, "Content-Security-Policy muss genau einmal base-uri 'none' setzen"],
 ];
 
 for (const [condition, message] of assertions) {
