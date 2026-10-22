@@ -50,16 +50,30 @@ export async function chooseProjectFolder() {
   return window.showDirectoryPicker({ mode: "readwrite", id: "schnellprompter-project" });
 }
 
-export async function appendQuickNote(directoryHandle, rawText) {
+export function normalizeQuickNote(rawText) {
   const text = rawText.trim().replace(/\s+/g, " ");
   if (!text) throw new Error("EMPTY_NOTE");
+  return text;
+}
+
+export async function appendQuickNote(directoryHandle, rawText) {
+  const text = normalizeQuickNote(rawText);
 
   const fileHandle = await directoryHandle.getFileHandle(FILE_NAME, { create: true });
   const file = await fileHandle.getFile();
   const writable = await fileHandle.createWritable({ keepExistingData: true });
-  await writable.seek(file.size);
-  await writable.write(`${file.size ? "\n" : ""}- [${new Date().toISOString()}] ${text}\n`);
-  await writable.close();
+  try {
+    await writable.seek(file.size);
+    await writable.write(`${file.size ? "\n" : ""}- [${new Date().toISOString()}] ${text}\n`);
+    await writable.close();
+  } catch (error) {
+    try {
+      await writable.abort();
+    } catch {
+      // Urspruenglicher Schreibfehler hat Vorrang vor einem Abbruchfehler.
+    }
+    throw error;
+  }
 }
 
 export { FILE_NAME };
