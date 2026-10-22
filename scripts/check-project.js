@@ -1,3 +1,4 @@
+import { hasStrictBaseUri } from "./csp-base-uri.js";
 import { execFileSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 
@@ -26,6 +27,7 @@ for (const path of requiredFiles.filter((item) => item.endsWith(".js"))) {
 }
 
 const assertions = [
+  [hasStrictBaseUri(contents["index.html"]), "CSP base-uri muss genau einmal mit none gesperrt sein"],
   [contents["index.html"].startsWith("<!doctype html>"), "HTML-Dokumenttyp fehlt"],
   [contents["index.html"].includes('lang="de"'), "Dokumentsprache fehlt"],
   [contents["index.html"].includes('id="arbeitsbereich"'), "Hauptbereich fehlt"],
