@@ -24,3 +24,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Projekt und JavaScript-Syntax prüfen
         run: npm test
+
+      - name: CSP base-uri in echtem Chromium pruefen
+        run: python3 tests/test_csp_browser.py
