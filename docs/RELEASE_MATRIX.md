@@ -1,7 +1,8 @@
 # Vorrelease-Pflichtmatrix – Schnellprompter
 
 Stand: 2026-10-23. **Ausgangs-HEAD main:** `90c6834f9467bd4a1039465fe11202d9b06e4ac4`. Entwicklungszweig: `fix/validate-stored-settings-20261023`.
-Der aktuelle Zweig-HEAD und die unabhängigen CI-Ergebnisse sind im zugehörigen Pull Request maßgeblich.
+**Fachcommit:** `a1a8c3bdaa5f6908c444e89b230e8e1f3d3a28c7` · **PR:** #14 (`fix/validate-stored-settings-20261023`).
+Die jeweils aktuelle Zweigspitze und die unabhängigen CI-Ergebnisse stehen im Pull Request.
 Status bedeutet: **PASS** = durch konkret genannte Prüfung belegt; **PARTIAL** = Teilnachweis;
 **OPEN** = nicht umgesetzt/nicht nachgewiesen; **BLOCKED** = notwendige Voraussetzung fehlt.
 Ein grüner Projektcheck ist kein Beweis für vollständige Produkt- oder Browserreife.
@@ -31,7 +32,10 @@ Ein grüner Projektcheck ist kein Beweis für vollständige Produkt- oder Browse
 - **Änderung:** Nur die beiden bekannten Einstellungsfelder werden aus dem Browserspeicher
   übernommen, und nur mit erlaubten Optionswerten. Unbekannte Schlüssel werden ignoriert.
 - **Prüfung:** `node --test tests/settings.test.mjs` (12 Fälle), `npm test` in der PR-CI;
-  visuelle UI nicht verändert. Isolierter lokaler Node-Test: 12/12 PASS vor GitHub-Übertragung.
+  visuelle UI nicht verändert. Isolierter lokaler Node-Test: **12/12 PASS** vor GitHub-Übertragung.
+  GitHub-Actions-Prüfung des Fachcommits: **PASS** in Node 20 und Node 22 (Projektcheck,
+  Node-Tests und Chromium-CSP-Gate), Lauf `39981385153`, abgeschlossen 2026-10-23.
+  Die spätere CI-Prüfung des reinen Dokumentationscommits bleibt unabhängig zu prüfen.
 - **Rückweg:** Den einen fachlichen Commit im Entwicklungszweig rückgängig machen.
 - **Nächster Schritt:** TODO 09 (kontrollierte Laufzeitfehlercodes) oder TODO 03 (Browser-Fallback),
   abhängig von Risiken und offenen CI-Gates.
