@@ -2,12 +2,12 @@
 [HOCH] 02 Qualität – Der Projektcheck prüft überwiegend Textvorkommen statt Verhalten – Regressionen beim Speichern, bei Einstellungen und bei der Tastaturbedienung bleiben automatisch unentdeckt – Nach Festlegung der Browser-Matrix gezielte Modul- und End-to-End-Tests für die Kernpfade ergänzen (Aufwand: mittel)
 [HOCH] 03 Browser – Die Schnellspeicherung setzt die File System Access API voraus – Firefox und Safari können den einzigen produktiven Schreibablauf nicht verwenden – Einen dateibasierten Download- oder Kopier-Fallback anhand der Zielbrowser umsetzen (Aufwand: mittel)
 [MITTEL] 05 Datenschutz – Lokales Autosave ist standardmäßig aktiv, während Persistenz- und Datenschutzanforderungen ungeklärt sind – Vertrauliche Entwürfe können ohne bewusste Entscheidung im Browserprofil verbleiben – Schutzbedarf, Aufbewahrung und Löschkonzept festlegen und die Voreinstellung danach entscheiden (Aufwand: klein)
-[MITTEL] 06 Robustheit – Gespeicherte Einstellungswerte werden ungeprüft in UI und Dokumentzustand übernommen – Manipulierte oder veraltete Local-Storage-Daten können inkonsistente Auswahl- und Darstellungszustände erzeugen – Geladene Werte gegen die erlaubten Optionen validieren und sonst Standardwerte nutzen (Aufwand: klein)
 [MITTEL] 07 Repository – Drei nicht referenzierte Binärdateien belegen zusammen rund 3,1 MB im aktuellen Stand – Klone und Reviews transportieren dauerhaft Material ohne belegten Produktnutzen – Verwendungszweck klären und nicht benötigte Quelldateien entfernen oder extern archivieren (Aufwand: klein)
 [NIEDRIG] 09 Diagnose – Globale Laufzeitfehler protokollieren ungefilterte Fehlermeldungen – Browser- oder Fremdfehler könnten entgegen der Logging-Regel Inhalte in die Konsole übernehmen – Nur kontrollierte Fehlercodes und technische Metadaten protokollieren (Aufwand: klein)
 [NIEDRIG] 10 Installation – Web-App-Icons fehlen im Manifest – Die installierte Darstellung nutzt kein eigenes Markenzeichen – Nach Freigabe der Markenassets passende Manifest-Icons ergänzen (Aufwand: klein)
 [MITTEL] 11 Tests – Automatische Prüfung deckt Quelltext und Syntax ab, aber keine echten Browserinteraktionen – Notizspeicherung und Fehlerbehandlung können unbemerkt regressieren – Browser-Smoke-Test mit isoliertem Testordner ergänzen (Aufwand: mittel)
 
 ERLEDIGT
+- 06 Robustheit: Gespeicherte Einstellungen werden je Feld gegen erlaubte Werte validiert; 12 isolierte Negativ-/Normalfalltests ergänzt (PR in Prüfung).
 - 04 Speichern: Schreibstream wird bei Seek-/Schreib-/Schliessfehler kontrolliert abgebrochen; Regressionstest (Issue #11, neuer PR).
 - 08 Sicherheit: CSP base-uri 'none' mit echtem Chromium-Nachweis umgesetzt (PR #12, CI #39861542173).
