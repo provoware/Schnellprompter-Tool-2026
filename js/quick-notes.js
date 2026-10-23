@@ -23,11 +23,19 @@ function writeLocal(key, value) {
 }
 
 export function loadSettings() {
+  let parsed;
   try {
-    return { ...DEFAULT_SETTINGS, ...JSON.parse(readLocal(SETTINGS_KEY, "{}")) };
+    parsed = JSON.parse(readLocal(SETTINGS_KEY, "{}"));
   } catch {
     return { ...DEFAULT_SETTINGS };
   }
+  const stored = parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+  return {
+    autosave: stored.autosave === "on" || stored.autosave === "off"
+      ? stored.autosave : DEFAULT_SETTINGS.autosave,
+    highlight: stored.highlight === "strong" || stored.highlight === "subtle"
+      ? stored.highlight : DEFAULT_SETTINGS.highlight,
+  };
 }
 
 export function saveSettings(settings) {
