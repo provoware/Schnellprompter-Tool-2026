@@ -73,7 +73,7 @@ with tempfile.TemporaryDirectory(prefix="provoware-fallback-") as temp:
         dom = result.stdout
         assert 'data-download-url="blob"' in dom, "Kein Blob-Download vorbereitet"
         assert re.search(
-            r'data-download-name="entwicklerinfo_und_ideen_menge-inhalt-[^"]+\\.md"', dom
+            r'data-download-name="entwicklerinfo_und_ideen_menge-inhalt-[^"]+\.md"', dom
         ), "Dateiname fehlt"
         assert 'data-fallback-button="Herunterladen"' in dom, "Fallback-Schaltfläche fehlt"
         assert 'data-fallback-input="Browser Testnotiz"' in dom, "Notiz wurde gelöscht"
