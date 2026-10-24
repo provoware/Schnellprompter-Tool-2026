@@ -34,6 +34,9 @@ test("Unbekannter Ereignistyp wird auf festen Code begrenzt", () => {
   assert.deepEqual(capture({ type: "PROMPT_IN_EVENT_TYPE" }), [
     ["Nicht behandelter Laufzeitfehler", { code: "UNKNOWN_RUNTIME_EVENT" }],
   ]);
+  assert.deepEqual(capture({ type: "constructor" }), [
+    ["Nicht behandelter Laufzeitfehler", { code: "UNKNOWN_RUNTIME_EVENT" }],
+  ]);
   assert.deepEqual(capture(null), [
     ["Nicht behandelter Laufzeitfehler", { code: "UNKNOWN_RUNTIME_EVENT" }],
   ]);
