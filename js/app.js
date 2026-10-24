@@ -1,5 +1,6 @@
 import { config } from "./config.js";
 import { createLogger } from "./logger.js";
+import { downloadQuickNote } from "./note-download.js";
 import {
   appendQuickNote,
   chooseProjectFolder,
@@ -53,7 +54,17 @@ async function selectFolder() {
 
 async function handleNoteSubmit(event) {
   event.preventDefault();
-  if (!elements.noteInput || (!directoryHandle && !(await selectFolder()))) return;
+  if (!elements.noteInput) return;
+  if (!supportsFolderAccess()) {
+    try {
+      downloadQuickNote(elements.noteInput.value);
+      setStatus("Download gestartet. Datei prüfen und die Notiz selbst in die Projektdatei übernehmen. Die Eingabe bleibt erhalten.");
+    } catch {
+      setStatus("Download fehlgeschlagen. Die Eingabe bleibt erhalten.", "error");
+    }
+    return;
+  }
+  if (!directoryHandle && !(await selectFolder())) return;
   try {
     await appendQuickNote(directoryHandle, elements.noteInput.value);
     elements.noteInput.value = "";
@@ -86,6 +97,12 @@ function bindQuickNotes() {
   if (!elements.noteForm || !elements.settingsDialog) return;
   elements.noteInput.value = loadDraft();
   applySettings();
+  if (!supportsFolderAccess()) {
+    if (elements.chooseFolder) elements.chooseFolder.hidden = true;
+    const submitButton = elements.noteForm.querySelector('button[type="submit"]');
+    if (submitButton) submitButton.textContent = "Herunterladen";
+    setStatus("Keine Ordnerwahl: Notiz als einzelne Markdown-Datei herunterladen und selbst ins Projekt übernehmen.");
+  }
   elements.noteForm.addEventListener("submit", handleNoteSubmit);
   elements.chooseFolder?.addEventListener("click", selectFolder);
   elements.noteInput.addEventListener("input", () => saveDraft(elements.noteInput.value, settings.autosave === "on"));
