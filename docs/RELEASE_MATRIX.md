@@ -89,8 +89,11 @@ Neuer Dokumentations-HEAD benötigt einen eigenen CI-Beleg; kein Release-PASS oh
 - **Tests:** Vier isolierte Node-Regressionstests: Window-Fehler, Promise-Ablehnung,
   unbekannte und geerbte Ereignistypen sowie absichtlich werfende Getter auf sensiblen Feldern.
   `npm test` und Chromium-Prüfungen in Node 20/22 sind verbindliche CI-Gates.
-- **Status:** Fachcode und Tests im GitHub-Entwicklungszweig; CI am endgültigen HEAD
-  separat nachweisen. **Gesamt-Vorrelease weiterhin BLOCKED.**
+- **CI-Beleg Fachstand:** SHA `3ae3e208f5520c1df56727e53ed5f5d463851f83`,
+  GitHub Actions #40108739809 **PASS**: Node 20 und Node 22, `npm test`,
+  Chromium-CSP und Chromium-Download-Fallback (jeweils erfolgreiche Schritte).
+- **Status:** Fachcode und Tests im GitHub-Entwicklungszweig; CI am letzten
+  Dokumentations-HEAD separat nachweisen. **Gesamt-Vorrelease weiterhin BLOCKED.**
 - **Rückweg:** Fachcommits des neuen Zweigs zurücknehmen; PR #15 und #14 unverändert lassen.
 - **Offen:** Reale Firefox-/Safari-Downloads, echte Browser-/GUI-/Skalierungs- und
   Tastaturprüfungen, Fachkern Prompt-Erstellung, Datenwiederherstellung und Release-Freeze.
