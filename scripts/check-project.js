@@ -9,6 +9,7 @@ const requiredFiles = [
   "js/config.js",
   "js/logger.js",
   "js/quick-notes.js",
+  "js/note-download.js",
   "manifest.webmanifest",
   "README.md",
   "docs/DEVELOPMENT.md",
