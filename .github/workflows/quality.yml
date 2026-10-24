@@ -27,3 +27,6 @@ jobs:
 
       - name: CSP base-uri in echtem Chromium pruefen
         run: python3 tests/test_csp_browser.py
+
+      - name: Download-Fallback in echtem Chromium pruefen
+        run: python3 tests/test_note_fallback_browser.py

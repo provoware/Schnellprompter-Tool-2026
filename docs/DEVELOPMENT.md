@@ -24,6 +24,7 @@ index.html            Semantik und unveränderter Grundinhalt
 css/styles.css        Design-Tokens, Layout und responsive Darstellung
 js/config.js          Laufzeitkonfiguration ohne Geheimnisse
 js/logger.js          zentrale, strukturierte und bereinigte Logs
+js/note-download.js   dateibasierter Fallback ohne Ordner-API
 js/app.js             einziger Einstiegspunkt und globale Fehlererfassung
 scripts/              lokale, abhängigkeitfreie Qualitätsprüfungen
 docs/PROJECT_STATUS.md Fortschritt, Iterationen und Dokumentations-Trigger

@@ -8,9 +8,11 @@ fachlichen Funktionen schrittweise aufgebaut werden können.
 
 Das Dashboard kann kurze Entwicklerinfos und Ideen direkt an
 `entwicklerinfo_und_ideen_menge-inhalt.md` im ausgewählten Projektordner
-anhängen. Jeder Eintrag erhält einen ISO-Zeitstempel. Die Ordnerfreigabe nutzt
-die File System Access API (Chrome/Edge); ungesendete Eingaben werden abhängig
-von der gewählten Einstellung lokal im Browser zwischengespeichert.
+anhängen. Jeder Eintrag erhält einen ISO-Zeitstempel. Die Ordnerfreigabe nutzt die File System Access API (Chrome/Edge). Ohne diese
+Browserfunktion kann eine einzelne Notiz als Markdown-Datei heruntergeladen werden;
+diese wird **nicht automatisch** an die bestehende Projektdatei angehängt und muss
+selbst übernommen werden. Die Eingabe bleibt nach dem Download erhalten.
+Ungesendete Eingaben werden abhängig von der Einstellung lokal im Browser zwischengespeichert.
 
 ## Start
 
