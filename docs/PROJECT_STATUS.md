@@ -7,7 +7,7 @@
 | Nr. | Bereich | Status | Betroffene Dateien | Nächster belegter Schritt |
 |---:|---|---|---|---|
 | 01 | Prompt-Arbeitsbereich | 🔴 Offen | `index.html`, künftiges Fachmodul | Anforderungen und Akzeptanzkriterien festlegen |
-| 02 | Entwicklerinfos und Ideen | 🟢 Bereit | `js/quick-notes.js`, `js/app.js` | Browser-Fallback nach Browser-Matrix bewerten |
+| 02 | Entwicklerinfos und Ideen | 🟢 Bereit | `js/quick-notes.js`, `js/app.js` | Download-Fallback im PR #15; Firefox/Safari real prüfen |
 | 03 | Qualitätssicherung | 🟡 Aktiv | `scripts/check-project.js` | Zielbrowser festlegen, danach E2E-Check wählen |
 | 04 | Projektdokumentation | 🟢 Bereit | `README.md`, `docs/` | Bei fachlicher Außenwirkung gezielt pflegen |
 
@@ -24,6 +24,14 @@ Die Prozentwerte sind eine manuell gepflegte Orientierung, keine automatisch
 ermittelte Metrik. Sie werden nur bei einem nachweisbaren Meilenstein geändert.
 
 ## Iterationen
+
+### 2026-10-24 · Browser-Fallback für Entwicklernotizen (PR #15)
+
+- **Ziel:** Auch ohne Ordner-API eine Notiz als Markdown-Datei erzeugen können.
+- **Grenze:** Der Download hängt nicht automatisch an die Projektdatei an.
+  Eingaben bleiben für Wiederholung oder manuelle Übernahme erhalten.
+- **Nachweis:** Node-Regressionstests und Chromium-Smoke in PR #15; reale
+  Firefox-/Safari-Downloads sowie Gesamtfreigabe bleiben offen.
 
 ### 2026-09-19 · Struktur und Sprache
 
