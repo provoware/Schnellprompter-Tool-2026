@@ -17,11 +17,11 @@ Ein grüner Projektcheck ist kein Beweis für vollständige Produkt- oder Browse
 | Design, Lesbarkeit, UX | OPEN | CSS/HTML vorhanden; keine aktuelle visuelle Abnahme für alle Zielgrößen | Browsercheck mit dokumentierten Screenshots |
 | 800×600, 100/150/200 % Skalierung | OPEN | Kein reproduzierbarer Nachweis in diesem Arbeitsstand | Größen und Überlauf in realem Browser prüfen |
 | Tastatur und Barrierefreiheit | PARTIAL | Skip-Link, Formularbeschriftung und Statusregion in `index.html` | Fokusfolge, Dialog und Tastatur-Regression im Browser |
-| Browser-Kompatibilität | BLOCKED | Ordner-API nur in unterstützten Browsern; TODO 03 | Download-/Kopier-Fallback ohne Dateiverlust |
+| Browser-Kompatibilität | PARTIAL | PR #15: Markdown-Download ohne Ordner-API, Node-Tests; Chromium-Smoke in CI vorgesehen | Echte Firefox-/Safari-Downloads und manuelle Dateiübernahme prüfen |
 | Leistung und Wartbarkeit | PARTIAL | ES-Module ohne Runtime-Pakete; `scripts/check-project.js` | Große Eingaben, langsame Datenträger und Fehlerlast testen |
 | Installation/Paketierung | PARTIAL | `npm start`, `manifest.webmanifest` | Installierbarkeit, Icons und Offline-Betrieb nachweisen |
-| Automatische Funktions-/Regressionstests | PARTIAL | `npm test` enthält Projektcheck und Node-Tests; neue 12 Einstellungsfälle | End-to-End-Test für Notizen und Einstellungen |
-| Integration, GUI/Browser | OPEN | Browser-CSP-Prüfung in `tests/test_csp_browser.py`; keine vollständige Interaktion | Isolierten Browser-Smoke-Test hinzufügen |
+| Automatische Funktions-/Regressionstests | PARTIAL | `npm test` enthält Projektcheck, 12 Einstellungsfälle und 5 neue Download-Fälle (PR #15) | Vollständige End-to-End-Tests für Notizen und Einstellungen |
+| Integration, GUI/Browser | PARTIAL | `tests/test_note_fallback_browser.py` prüft Fallback-Formular in Chromium (CI ausstehend); CSP-Test bleibt bestehen | Reale Download-Ereignisse, Fokusfolge, 800×600 und Skalierung prüfen |
 | CI und Release-Freeze | PARTIAL | `.github/workflows/quality.yml` prüft Node 20/22 + Chromium-CSP | PR-CI grün, vollständige Release-Gates und Freeze |
 | Dokumentation und Nutzer-Endabnahme | OPEN | README, Entwicklungsdokumentation und TODO vorhanden | Nach vollständiger technischer Reife eine gebündelte Kubuntu-/Sichtabnahme |
 
@@ -46,3 +46,28 @@ Ausgangsstand: `90c6834f9467bd4a1039465fe11202d9b06e4ac4`; Plan: TODO 06 abschli
 `js/quick-notes.js`, `tests/settings.test.mjs`, `todo.txt`, diese Matrix.
 Nicht-Ziele: Prompt-Editor, Dateimigration, Browserberechtigungen, Veröffentlichung.
 Neue Befunde in `todo.txt` dokumentieren. Kein Release-PASS ohne Browser- und CI-Belege.
+
+## Arbeitspaket 2026-10-24: Notiz-Download ohne Ordner-API (PR #15)
+
+- **REQ/Finding:** TODO 03; in Firefox/Safari ohne Ordner-API konnte keine Notiz gesichert werden.
+- **Basis und Abhängigkeit:** PR #14, Ausgangs-SHA `67f558b60b3070b8484dcde3c92946896a20db7d`;
+  neuer Zweig `feat/note-download-fallback-20261024`, gestapelter PR #15 gegen PR #14.
+- **Scope:** `js/note-download.js`, `js/app.js`, `index.html`, `tests/note-download.test.mjs`,
+  `tests/test_note_fallback_browser.py`, `.github/workflows/quality.yml`, Projektcheck und zugehörige Dokumentation.
+- **Invariante:** Chrome/Edge-Ordneranhang bleibt unverändert; Fallback lädt **nur eine Einzelnotiz** herunter,
+  verspricht kein automatisches Anhängen und löscht den eingegebenen Text nicht.
+- **Prüfplan:** 5 Node-Fälle (Inhalt, Dateiname, Leerfall, Blob-URL, Klickfehler),
+  Chromium-Formular-Smoke ohne Ordner-API, bestehende CSP-/Speicherprüfungen und Node 20/22 in CI.
+- **Aktueller Nachweis:** Implementierung und Tests in GitHub-PR #15; **CI des finalen HEAD noch zu prüfen**.
+  Browser-Smoke prüft einen vorbereiteten Blob-Link, nicht den tatsächlichen Download auf Firefox/Safari.
+- **Restpflicht:** Firefox/Safari reale Downloads, Download-Sperre, manuelle Zusammenführung,
+  Datenverlust- und Tastatur-/Skalierungstests.
+- **Rückweg:** Nur die Commits aus PR #15 rückgängig machen; PR #14 bleibt unabhängig.
+- **Nächster Schritt:** CI am finalen PR-HEAD auswerten und Fehler selbst reparieren; danach reale Browserfälle.
+
+## Recovery-Schlüssel 2026-10-24
+
+Repository `provoware/Schnellprompter-Tool-2026`; Basis `67f558b60b3070b8484dcde3c92946896a20db7d`;
+Branch `feat/note-download-fallback-20261024`; PR #15 (Entwurf, gestapelt auf PR #14);
+Plan: TODO 03 Browser-Fallback; keine Migration, kein Merge und keine Veröffentlichung.
+Ergebnisstatus erst nach finaler CI am jeweiligen SHA als PASS werten.
