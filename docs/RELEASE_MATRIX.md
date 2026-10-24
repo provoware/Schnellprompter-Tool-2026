@@ -12,7 +12,7 @@ Ein grüner Projektcheck ist kein Beweis für vollständige Produkt- oder Browse
 | Prompt erstellen, bearbeiten, speichern | OPEN | `index.html` zeigt einen bewusst leeren Prompt-Arbeitsbereich; TODO 01 | Kernablauf und Akzeptanzkriterien festlegen, danach implementieren |
 | Schnelle Entwicklernotiz | PARTIAL | `js/quick-notes.js`, `tests/quick-notes.test.mjs`: Schreiben, Abbruch und Leerfall | Echte Browserinteraktion und Wiederholungsfälle |
 | Datenverlustschutz, Recovery | PARTIAL | Stream-Abbruch bei Seek-/Write-/Close-Fehlern mit Regressionstest | Isolierte Browser-Recovery und knapper Speicher |
-| Fehlerbehandlung und Sicherheit | PARTIAL | CSP-Test `tests/csp-base-uri.test.mjs`; gespeicherte Optionen: `tests/settings.test.mjs` | Fehlermeldungen im Laufzeitlogger auf feste Codes begrenzen (TODO 09) |
+| Fehlerbehandlung und Sicherheit | PARTIAL | CSP-Test `tests/csp-base-uri.test.mjs`; gespeicherte Optionen: `tests/settings.test.mjs`; `tests/runtime-errors.test.mjs` prüft feste Fehlercodes (neuer PR) | Logger-Gesamteingänge und Browser-/Sicherheitsgrenzfälle prüfen |
 | Einstellungen und alte/defekte Browserdaten | PARTIAL | `tests/settings.test.mjs`: 12 Fälle für erlaubte Werte, ungültige Typen, beschädigtes JSON, Speichersperre | Reale Browserpersistenz und Migration prüfen |
 | Design, Lesbarkeit, UX | OPEN | CSS/HTML vorhanden; keine aktuelle visuelle Abnahme für alle Zielgrößen | Browsercheck mit dokumentierten Screenshots |
 | 800×600, 100/150/200 % Skalierung | OPEN | Kein reproduzierbarer Nachweis in diesem Arbeitsstand | Größen und Überlauf in realem Browser prüfen |
@@ -74,3 +74,33 @@ Branch `feat/note-download-fallback-20261024`; PR #15 (Entwurf, gestapelt auf PR
 Plan: TODO 03 Browser-Fallback; keine Migration, kein Merge und keine Veröffentlichung.
 Letzter belegter CI-Stand: `0fba3388078bcf145c9a5d76594007529ad69a60`, Lauf #40056137581 PASS.
 Neuer Dokumentations-HEAD benötigt einen eigenen CI-Beleg; kein Release-PASS ohne weitere Browserprüfungen.
+
+## Arbeitspaket 2026-10-24: Datenschutz bei globalen Laufzeitfehlern
+
+- **REQ/Finding:** TODO 09; bisher wurden `event.message` bzw. `event.reason.message` ungefiltert
+  an den Logger übergeben. Browser- und Fremdfehler können dadurch Prompt-Inhalte oder Tokens offenlegen.
+- **Basis:** PR #15, SHA `8b43e29813cb389864d8ac1f89545beafb6720ac`;
+  Entwicklungszweig `fix/sanitize-runtime-error-logging-20261024` (gestapelt auf PR #15, dieser auf #14).
+- **Scope:** `js/runtime-errors.js`, `js/app.js`, `tests/runtime-errors.test.mjs`,
+  `todo.txt`, `docs/DEVELOPMENT.md` und diese Matrix.
+- **Invariante:** Beide Browserereignisse bleiben protokolliert, aber ausschließlich mit festen
+  Codes `WINDOW_ERROR`, `UNHANDLED_REJECTION` oder `UNKNOWN_RUNTIME_EVENT`;
+  keine Fehlertexte, Pfade, Promise-Gründe oder Nutzerdaten auslesen.
+- **Tests:** Vier isolierte Node-Regressionstests: Window-Fehler, Promise-Ablehnung,
+  unbekannte und geerbte Ereignistypen sowie absichtlich werfende Getter auf sensiblen Feldern.
+  `npm test` und Chromium-Prüfungen in Node 20/22 sind verbindliche CI-Gates.
+- **Status:** Fachcode und Tests im GitHub-Entwicklungszweig; CI am endgültigen HEAD
+  separat nachweisen. **Gesamt-Vorrelease weiterhin BLOCKED.**
+- **Rückweg:** Fachcommits des neuen Zweigs zurücknehmen; PR #15 und #14 unverändert lassen.
+- **Offen:** Reale Firefox-/Safari-Downloads, echte Browser-/GUI-/Skalierungs- und
+  Tastaturprüfungen, Fachkern Prompt-Erstellung, Datenwiederherstellung und Release-Freeze.
+- **Nächster Schritt:** GitHub-CI auf endgültigem SHA prüfen, Fehler reparieren;
+  danach Browser-Fokusfolge und 800×600/150–200 % als nächste unabhängige Pflicht.
+
+## Recovery-Schlüssel 2026-10-24 – Laufzeitlogger
+
+Repository `provoware/Schnellprompter-Tool-2026`; Ausgangs-HEAD `8b43e29813cb389864d8ac1f89545beafb6720ac`;
+Branch `fix/sanitize-runtime-error-logging-20261024`; gestapelte Basis PR #15 → PR #14 → main;
+Plan TODO 09, nur oben genannter Scope, keine Migration, kein Merge, keine Veröffentlichung.
+Prüfbelege und abschließende HEAD-SHA stehen im zugehörigen Pull Request;
+ein CI-PASS ist bis zur tatsächlichen Prüfung **nicht behauptet**.
