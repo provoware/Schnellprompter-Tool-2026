@@ -1,5 +1,6 @@
 import { config } from "./config.js";
 import { createLogger } from "./logger.js";
+import { reportRuntimeError } from "./runtime-errors.js";
 import { downloadQuickNote } from "./note-download.js";
 import {
   appendQuickNote,
@@ -116,15 +117,8 @@ function start() {
   logger.debug("Anwendung initialisiert", { environment: config.environment });
 }
 
-function reportRuntimeError(event) {
-  logger.error("Nicht behandelter Laufzeitfehler", {
-    type: event.type,
-    message: event.reason?.message ?? event.message ?? "Unbekannter Fehler",
-  });
-}
-
-window.addEventListener("error", reportRuntimeError);
-window.addEventListener("unhandledrejection", reportRuntimeError);
+window.addEventListener("error", (event) => reportRuntimeError(event, logger));
+window.addEventListener("unhandledrejection", (event) => reportRuntimeError(event, logger));
 
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", start, { once: true });
