@@ -24,6 +24,7 @@ index.html            Semantik und unveränderter Grundinhalt
 css/styles.css        Design-Tokens, Layout und responsive Darstellung
 js/config.js          Laufzeitkonfiguration ohne Geheimnisse
 js/logger.js          zentrale, strukturierte und bereinigte Logs
+js/runtime-errors.js  feste Fehlercodes fuer globale Browserereignisse
 js/note-download.js   dateibasierter Fallback ohne Ordner-API
 js/app.js             einziger Einstiegspunkt und globale Fehlererfassung
 scripts/              lokale, abhängigkeitfreie Qualitätsprüfungen
@@ -60,6 +61,8 @@ Stufe, Nachricht und stabilen Anwendungskontext. Felder mit sensitiven Namen wie
 Regeln:
 
 - Keine Nutzereingaben, vollständigen Prompt-Texte, Tokens oder Secrets loggen.
+- Globale Browserfehler nur als feste Codes protokollieren; `message`, `reason`,
+  Dateipfade und Fremdfehlertexte dürfen nicht an den Logger gelangen.
 - Erwartbare Validierungsfehler nicht als Laufzeitfehler behandeln.
 - `debug` für Diagnose, `info` für relevante Zustandswechsel, `warn` für
   tolerierte Abweichungen und `error` für fehlgeschlagene Abläufe verwenden.
